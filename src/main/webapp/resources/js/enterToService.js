@@ -7,7 +7,7 @@ var teacher = {
     "lastName": fakeTeacherJson.middle_name,
     "chair": fakeTeacherJson.chair,
     "groups": ""
-}
+};
 
 function sortDatesInGroups() {
     groups.forEach(function (group) {
@@ -20,9 +20,10 @@ $(document).ready(function () {
 
         var requests;
         var ajax = $.ajax({
-            type: "POST",
+            type: "GET",
             url: "home/findByPolyId",
-            data: JSON.stringify(fakeTeacherJson),
+            data: {teacherId: teacher.polytechId},
+
             contentType: 'application/json'
         });
 
@@ -50,7 +51,7 @@ $(document).ready(function () {
                     });
 
                     Promise.all([request1, request2]).then(function (value1) {
-                        $(location).attr('href', "/home/" + teacher.polytechId);
+                        $(location).attr('href', "/menu?teacherId=" + teacher.polytechId);
                     });
 
                     var a = 1;
@@ -58,7 +59,7 @@ $(document).ready(function () {
                 });
             }
             else {
-                $(location).attr('href', "/home/" + teacher.polytechId);
+                $(location).attr('href', "/menu?teacherId=" + teacher.polytechId);
             }
         });
         return false;

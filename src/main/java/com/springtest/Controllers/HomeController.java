@@ -30,15 +30,13 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/findByPolyId", method = RequestMethod.POST)
+    @RequestMapping(value = "/findByPolyId", method = RequestMethod.GET)
     public @ResponseBody
-    Teacher findTeacher(@RequestBody Teacher teacher) {
-        Teacher teacher_ = teacherService.findByPolytechId(teacher.getPolytechId());
-        if (teacher_ != null) {
-            return teacher;
-        } else {
-            return null;
-        }
+    Teacher findTeacher(String teacherId) {
+
+        Teacher teacher = teacherService.findByPolytechId(teacherId);
+
+        return teacher;
     }
 
     @RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
@@ -64,10 +62,4 @@ public class HomeController {
         return groupService.saveAll(groups);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String showUserProfile(@PathVariable String id, Model model, HttpServletRequest request) {
-        Teacher teacher = teacherService.findByPolytechId(id);
-        model.addAttribute("teacher", teacher);
-        return "menu";
-    }
 }

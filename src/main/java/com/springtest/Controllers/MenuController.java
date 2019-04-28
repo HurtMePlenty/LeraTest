@@ -48,4 +48,11 @@ public class MenuController {
         model.addAttribute("teacherId", teacherId);
         return "group";
     }
+
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    public String showUserProfile(Model model, HttpServletRequest request, String teacherId) {
+        Teacher teacher = teacherService.findByPolytechId(teacherId);
+        model.addAttribute("teacher", teacher);
+        return "menu";
+    }
 }
